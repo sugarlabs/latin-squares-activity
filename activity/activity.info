@@ -1,0 +1,9 @@
+[Activity]
+name = Latin Squares
+activity_version = 1
+bundle_id = org.sugarlabs.latinsquares
+icon = icon
+exec = sugar-activity3 activity.LatinSquaresActivity
+license = GPLv3+
+summary = Latin Squares mathematical strategy game
+repository = https://github.com/marsian83/latin-squares-activity.git
