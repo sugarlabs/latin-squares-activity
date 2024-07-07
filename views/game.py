@@ -23,10 +23,10 @@ def view(game):
     vw = game.vw
     vh = game.vh
 
-    board_size = vh(70)
+    board_size = vh(90)
 
-    board = Board(vw(100) - board_size // 2, vh(100) - board_size // 2, vh(70), vh(70) )
-    board.generate_game(3)
+    board = Board((vw(100) - board_size) // 2,(vh(100) - board_size) // 2, board_size, board_size)
+    board.generate_game(6, 1)
 
     def update():
         board.update()

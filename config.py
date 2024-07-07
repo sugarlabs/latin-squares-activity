@@ -21,6 +21,8 @@ from font import Font
 
 font = Font()
 background_color = (245, 225, 231)
+button_color = (100, 211, 131)
+answer_color = (250, 111, 131)
 front_color = (0, 0, 0)                                                    
 
 images = {}

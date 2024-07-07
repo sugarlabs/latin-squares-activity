@@ -23,22 +23,29 @@ from components.common import Clickable, Drawable
 class Button(Clickable, Drawable):
     def __init__(self, x, y,
                  label, w=None, h=None,
-                 font=None, color=(100,100,200)):
+                 font=None, text_color=None, image=None):
         super().__init__()
 
         self.gameDisplay = pygame.display.get_surface()
 
-        self.img = pygame.Surface((w, h))
-        self.rect = pygame.Rect((0, 0), (w, h))
-        self.color = color
+        if image is None:
+            image = config.images["tiles"]["none"]
+        self.img = image
+        if w is not None:
+            self.img = utils.scale_image_maintain_ratio(self.img, w=w)
+        if h is not None:
+            self.img = utils.scale_image_maintain_ratio(self.img, h=h)
 
-        pygame.draw.rect(self.img, self.color, self.rect)
+        self.rect = pygame.Rect((0, 0), (w, h))
+
+        # pygame.draw.rect(self.img, self.color, self.rect)
 
         if font is None:
             font = config.font.lg
 
         # Generate and blit the Label on button
-        text_color = config.front_color
+        if text_color is None:
+            text_color = config.front_color
         label = font.render(label, True, text_color)
         label_rect = label.get_rect()
         label_rect.x = self.rect.width // 2 - label_rect.width // 2
