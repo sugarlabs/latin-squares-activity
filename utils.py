@@ -31,3 +31,6 @@ def scale_image_maintain_ratio(img, w=None, h=None):
 
     if w is None and h is None:
         return img
+
+def array_has_no_none(arr):
+    return all(element is not None for element in arr)

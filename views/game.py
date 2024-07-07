@@ -29,6 +29,7 @@ def view(game):
     board.generate_game(3)
 
     def update():
+        board.update()
         pass
 
     game.update_function = update

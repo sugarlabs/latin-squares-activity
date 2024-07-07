@@ -23,14 +23,14 @@ from components.common import Clickable, Drawable
 class Button(Clickable, Drawable):
     def __init__(self, x, y,
                  label, w=None, h=None,
-                 font=None):
+                 font=None, color=(100,100,200)):
         super().__init__()
 
         self.gameDisplay = pygame.display.get_surface()
 
         self.img = pygame.Surface((w, h))
         self.rect = pygame.Rect((0, 0), (w, h))
-        self.color = config.accent_color
+        self.color = color
 
         pygame.draw.rect(self.img, self.color, self.rect)
 

@@ -19,6 +19,7 @@ import utils
 import pygame
 from random import random, choice
 import math
+from components.button import Button
 
 class Board():
     def __init__(self, x, y, w, h):
@@ -33,6 +34,8 @@ class Board():
         self.w = w
         self.h = h
 
+        self.buttons = []
+
     def generate_game(self, size):
         for _ in range(size):
             nums = []
@@ -45,8 +48,15 @@ class Board():
                 ops.append(choice(["+", "-", "/", "*"]))
             self.ops_matrix.append(ops)
 
-        print(self.ops_matrix)
-        print(self.nums_matrix)
+        box_size = self.w // (len(self.nums_matrix) + len(self.ops_matrix))
+        for i, nums in enumerate(self.nums_matrix):
+            y = box_size * 2 * i
+            for j, num in enumerate(nums):
+                 self.buttons.append(Button(self.w + 2 * j * box_size, y, f"{num}", w = box_size, h = box_size, font=config.font.xl))
+            for i, ops in enumerate(self.ops_matrix):
+                y = box_size * (2 * i)
+                for j, op in enumerate(ops):
+                    self.buttons.append(Button(self.w + (2 * j + 1) * box_size, y, f"{op}", w = box_size, h = box_size, color = config.background_color, font=config.font.xxl))
 
     def game_over_check(self, turn):
             over = True
@@ -61,8 +71,10 @@ class Board():
             if turn == 1:
                  self.end_game("lose")
             return True
+    
+    def draw(self):
+         pass
 
     def update(self):
-        for row in self.game_matrix:
-            for o in row:
-                o.update()
+        for btn in self.buttons:
+             btn.update()
