@@ -16,11 +16,17 @@
 import config
 import utils
 import math
+from components.board import Board
 
 def view(game):
     buttons = []
     vw = game.vw
     vh = game.vh
+
+    board_size = vh(70)
+
+    board = Board(vw(100) - board_size // 2, vh(100) - board_size // 2, vh(70), vh(70) )
+    board.generate_game(3)
 
     def update():
         pass
