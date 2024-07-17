@@ -17,17 +17,30 @@ import config
 import utils
 import math
 from components.board import Board
+from components.common import Drawable
 
 def view(game):
     buttons = []
     vw = game.vw
     vh = game.vh
 
-    board_size = vh(90)
+    level = -1
+    level_label = None
 
+    board_size = vh(80)
     board = Board((vw(100) - board_size) // 2,(vh(100) - board_size) // 2, board_size, board_size)
-    board.generate_game(6, 1)
 
+    def next_level():
+        level += 1
+        board.generate_game()
+        level_label = Drawable
+
+
+    # board.generate_game(4, 3)
+    next_level()
+    board.on_win = next_level
+
+    
     def update():
         board.update()
         pass

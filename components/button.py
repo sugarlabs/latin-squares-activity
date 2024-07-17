@@ -27,34 +27,58 @@ class Button(Clickable, Drawable):
         super().__init__()
 
         self.gameDisplay = pygame.display.get_surface()
-
-        if image is None:
-            image = config.images["tiles"]["none"]
+        
+        self.x = x
+        self.modulo = 0
+        self.rotatablity = False
+        self.y = y
+        self.label = label
+        self.w = w
+        self.h = h
+        self.font =font
+        self.text_color = text_color
         self.img = image
-        if w is not None:
-            self.img = utils.scale_image_maintain_ratio(self.img, w=w)
-        if h is not None:
-            self.img = utils.scale_image_maintain_ratio(self.img, h=h)
+        self.initialize()
 
-        self.rect = pygame.Rect((0, 0), (w, h))
 
-        # pygame.draw.rect(self.img, self.color, self.rect)
+    def initialize(self):
+        if self.img is None:
+            self.img = config.images["tiles"]["none"]
+        self.image = self.img
+        if self.w is not None:
+            self.image = utils.scale_image_maintain_ratio(self.image, w=self.w)
+        if self.h is not None:
+            self.image = utils.scale_image_maintain_ratio(self.image, h=self.h)
 
-        if font is None:
-            font = config.font.lg
+        self.rect = pygame.Rect((0, 0), (self.w, self.h))
+
+        # pygame.draw.rect(self.image, self.color, self.rect)
+
+        if self.font is None:
+            self.font = config.font.lg
 
         # Generate and blit the Label on button
-        if text_color is None:
-            text_color = config.front_color
-        label = font.render(label, True, text_color)
+        if self.text_color is None:
+            self.text_color = config.front_color
+        label = self.font.render(self.label, True, self.text_color)
         label_rect = label.get_rect()
         label_rect.x = self.rect.width // 2 - label_rect.width // 2
         label_rect.y = self.rect.height // 2 - label_rect.height // 2
-        self.img.blit(label, label_rect)
+        self.image.blit(label, label_rect)
 
-        self.set_image_rect(self.img,
-                            x,
-                            y)
+        self.set_image_rect(self.image,
+                            self.x,
+                            self.y)
+        
+    def rotatable(self, modulo):
+        self.modulo = modulo
+        self.rotatablity = True
+        self.on_click = self.rotate
+
+    def rotate(self):
+        if self.rotatablity == True:
+            self.label = f"{((int(self.label) + 1) % (self.modulo + 1))}"
+            self.initialize()
 
     def update(self):
         Clickable.update(self)
