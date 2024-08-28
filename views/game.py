@@ -18,22 +18,23 @@ import utils
 import math
 from components.board import Board
 from components.common import Drawable
+from levels import LEVELS
 
 def view(game):
     buttons = []
     vw = game.vw
     vh = game.vh
 
-    level = -1
-    level_label = None
-
+    level = {"current" : 0, "label" : None}
+    
     board_size = vh(80)
     board = Board((vw(100) - board_size) // 2,(vh(100) - board_size) // 2, board_size, board_size)
 
     def next_level():
-        level += 1
-        board.generate_game()
-        level_label = Drawable
+        level["current"] += 1
+        lvl = level["current"]
+        board.generate_game(LEVELS[lvl][0], LEVELS[lvl][1])
+        level["label"] = Drawable
 
 
     # board.generate_game(4, 3)
