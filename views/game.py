@@ -27,8 +27,8 @@ def view(game):
 
     level = {"current" : 0, "label" : None}
     
-    board_size = vh(80)
-    board = Board((vw(100) - board_size) // 2,(vh(100) - board_size) // 2, board_size, board_size)
+    board_size = vh(75)
+    board = Board((vw(100) - board_size) // 2,((vh(100) - board_size) // 2) - 32, board_size, board_size)
 
     def next_level():
         level["current"] += 1

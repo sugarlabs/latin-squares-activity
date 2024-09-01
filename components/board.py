@@ -46,7 +46,7 @@ class Board():
         # Create button objects for each number and operator
         box_size = self.w // (len(self.nums_matrix) * 2 - 1)
         for i, nums in enumerate(self.nums_matrix):
-            y = box_size * 2 * i
+            y = box_size * 2 * i + self.y
             for j, num in enumerate(nums):
                 if missed < missing and random() < 1 / (2 * size - missing):
                     missed += 1
@@ -60,12 +60,12 @@ class Board():
                     self.buttons.append(Button(self.x + 2 * j * box_size, y, f"{num}", w=box_size, h=box_size, font=config.font.xl, image=config.images["tiles"]["blue"]))
         
         for i, ops in enumerate(self.ops_matrix_ver):
-            y = box_size * (2 * i)
+            y = box_size * (2 * i) + self.y
             for j, op in enumerate(ops):
                 self.buttons.append(Button(self.x + (2 * j + 1) * box_size, y, f"{op}", w=box_size, h=box_size, font=config.font.xxl))
         
         for i, ops in enumerate(self.ops_matrix_hor):
-            y = box_size * (2 * i + 1)
+            y = box_size * (2 * i + 1) + self.y
             for j, op in enumerate(ops):
                 self.buttons.append(Button(self.x + (2 * j) * box_size, y, f"{op}", w=box_size, h=box_size, font=config.font.xxl))
         
@@ -83,8 +83,8 @@ class Board():
                 elif op == '*':
                     result *= nums[j + 1]
                 elif op == '/':
-                    result /= nums[j + 1]
-            y = box_size * 2 * i
+                    result /= nums[j + 1] 
+            y = box_size * 2 * i + self.y
             self.answers.append(Button(self.x + (len(nums) * 2 - 1) * box_size + 16, y, f"{result}", w=box_size, h=box_size, font=config.font.xl))
 
         # Calculate and create buttons for the answers of each column
@@ -101,7 +101,7 @@ class Board():
                 elif op == '/':
                     result /= self.nums_matrix[i + 1][j]
             x = box_size * 2 * j
-            self.answers.append(Button(self.x + x, (len(self.nums_matrix) * 2 - 1) * box_size + 16, f"{result}", w=box_size, h=box_size, font=config.font.xl))
+            self.answers.append(Button(self.x + x, self.y + (len(self.nums_matrix) * 2 - 1) * box_size + 16, f"{result}", w=box_size, h=box_size, font=config.font.xl))
 
     def game_over_check(self):
         for i in range(len(self.rot_buttons)):
