@@ -25,7 +25,8 @@ def view(game):
     vw = game.vw
     vh = game.vh
 
-    level = {"current" : 0, "label" : None}
+    level = {"current" : 0, "label" : Drawable()}
+    level["label"].gameDisplay = game.gameDisplay
     
     board_size = vh(75)
     board = Board((vw(100) - board_size) // 2,((vh(100) - board_size) // 2) - 32, board_size, board_size)
@@ -34,7 +35,8 @@ def view(game):
         level["current"] += 1
         lvl = level["current"]
         board.generate_game(LEVELS[lvl][0], LEVELS[lvl][1])
-        level["label"] = Drawable
+        level_label = config.font.xl.render(f"Level {lvl}", True, config.front_color)
+        level["label"].set_image_rect(level_label, vw(10), vh(5))
 
 
     # board.generate_game(4, 3)
@@ -44,6 +46,7 @@ def view(game):
     
     def update():
         board.update()
+        level["label"].update()
         pass
 
     game.update_function = update

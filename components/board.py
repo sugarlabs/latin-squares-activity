@@ -28,6 +28,14 @@ class Board():
         self.rot_buttons = []
 
     def generate_game(self, size, missing):
+        self.nums_matrix = []
+        self.ops_matrix_hor = []
+        self.ops_matrix_ver = []
+        self.buttons = []
+        self.answers = []
+        self.to_be_checked = []
+        self.rot_buttons = []
+
         # Generate random numbers and operators for the game board
         for _ in range(size):
             nums = [math.floor(random() * size) + 1 for __ in range(size)]
@@ -48,7 +56,7 @@ class Board():
         for i, nums in enumerate(self.nums_matrix):
             y = box_size * 2 * i + self.y
             for j, num in enumerate(nums):
-                if missed < missing and random() < 1 / (2 * size - missing):
+                if missed < missing and random() < 1 / ((size - 1) * size - missing):
                     missed += 1
                     n = math.floor(random() * (size + 1)) + 1
                     rot_btn = (Button(self.x + 2 * j * box_size, y, f"{n}", w=box_size, h=box_size, font=config.font.xl, image=config.images["tiles"]["green"], text_color=(255, 0, 0)))
