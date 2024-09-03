@@ -18,8 +18,9 @@ import pygame
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
-import config
+import config, utils
 from font import Font 
+from components.common import Drawable
 from views import game
 
 class LatinSquares:
@@ -31,8 +32,7 @@ class LatinSquares:
         self.info = None
         self.update_function = None
         self.bg = (0, 0, 0)
-
-        self.help_popup = None
+        self.prev_update_function = None
 
     def vw(self, x):
         return (x / 100) * self.display_rect.width
@@ -55,10 +55,12 @@ class LatinSquares:
         self.bg = color
 
     def show_help(self):
-        self.help_popup.show()
+        if self.prev_update_function is None:
+            self.prev_update_function = self.update_function
+            self.update_function = self.help_popup.update
+        else:
+            self.update_function = self.prev_update_function
 
-    def hide_help(self):
-        self.help_popup.hide()
 
     def run(self):
         self.gameDisplay = pygame.display.get_surface()
@@ -70,7 +72,15 @@ class LatinSquares:
 
         self.bg = config.background_color
         self.set_screen(game.view)
-        # self.help_popup.initialize()
+
+        self.help_image = config.images["misc"]["help"]
+        self.help_image = utils.scale_image_maintain_ratio(self.help_image, h=self.vh(100))
+
+        self.help_popup = Drawable()
+        self.help_popup.gameDisplay = self.gameDisplay
+        self.help_popup.x = self.vw(3)
+        self.help_popup.y = self.vh(0)
+        self.help_popup.set_image_rect(self.help_image)
 
         if not (self.gameDisplay):
             self.gameDisplay = pygame.display.set_mode(

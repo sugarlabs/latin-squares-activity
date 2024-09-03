@@ -28,7 +28,7 @@ front_color = (0, 0, 0)
 images = {}
 
 def load_images():
-    for dir in ["tiles"]:
+    for dir in ["tiles", "misc"]:
         dir_images = {}
         directory = f"assets/images/{dir}"
         for filename in os.listdir(directory):
