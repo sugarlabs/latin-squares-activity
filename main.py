@@ -74,11 +74,16 @@ class LatinSquares:
         self.set_screen(game.view)
 
         self.help_image = config.images["misc"]["help"]
-        self.help_image = utils.scale_image_maintain_ratio(self.help_image, h=self.vh(100))
+        screen_ratio = self.vh(100) / self.vw(100)
+        help_ratio = self.help_image.get_height() / self.help_image.get_width()
+        if help_ratio > screen_ratio:
+            self.help_image = utils.scale_image_maintain_ratio(self.help_image, h=self.vh(100))
+        else:
+            self.help_image = utils.scale_image_maintain_ratio(self.help_image, w=self.vw(100))
 
         self.help_popup = Drawable()
         self.help_popup.gameDisplay = self.gameDisplay
-        self.help_popup.x = self.vw(3)
+        self.help_popup.x = self.vw(0)
         self.help_popup.y = self.vh(0)
         self.help_popup.set_image_rect(self.help_image)
 
