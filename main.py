@@ -60,6 +60,7 @@ class LatinSquares:
             self.update_function = self.help_popup.update
         else:
             self.update_function = self.prev_update_function
+            self.prev_update_function = None
 
 
     def run(self):
