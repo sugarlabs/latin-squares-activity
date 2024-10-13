@@ -1,12 +1,14 @@
 The Game
 =============
 
-Latin Squares
+The **Latin Square Activity** is a mathematical puzzle game that challenges players to fill in missing values in a grid, following specific rules. The game is designed to test both logical reasoning and mathematical skills as players advance through various levels with increasing difficulty.
 
-<img width="404" alt="Screenshot Game" src="">
-<br/>
-<img width="404" alt="Screenshot 2024-03-22 124721" src="">
+**Game Mechanics:**  
+- Players are presented with a matrix that contains missing values. Between each cell, operators (such as addition, subtraction, multiplication, etc.) are displayed.
+- The result of each row is shown at the right side of the grid, and the result of each column is shown at the bottom.
+- The objective is for players to fill in the missing values so that each equation is satisfied.
 
+![Image](https://github.com/user-attachments/assets/2f1fbe79-51e2-4750-921c-d1c82d5bb5f6)
 
 
 How to run
